@@ -34,7 +34,9 @@ public interface CiInformation {
     @Nullable
     String getBranch();
 
-    boolean isPullRequest();
+    default boolean isPullRequest() {
+        return getPullRequest() != null;
+    }
 
     @Nullable
     String getPullRequest();
@@ -42,7 +44,10 @@ public interface CiInformation {
     @Nullable
     String getPullRequestTargetBranch();
 
-    boolean isTag();
+    default boolean isTag() {
+        return getTag() != null;
+    }
+
     @Nullable
     String getTag();
 }
