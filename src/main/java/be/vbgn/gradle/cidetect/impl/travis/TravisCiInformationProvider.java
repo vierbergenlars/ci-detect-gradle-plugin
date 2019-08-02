@@ -5,7 +5,7 @@ import be.vbgn.gradle.cidetect.provider.CiInformationProvider;
 import javax.annotation.Nullable;
 import org.gradle.api.Project;
 
-class TravisCiInformationProvider implements CiInformationProvider {
+public class TravisCiInformationProvider implements CiInformationProvider {
 
     @Override
     public boolean isSupported() {
