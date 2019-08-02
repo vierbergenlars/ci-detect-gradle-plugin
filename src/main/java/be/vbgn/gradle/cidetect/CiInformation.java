@@ -8,6 +8,11 @@ import org.gradle.api.Project;
 public interface CiInformation {
 
     @Nonnull
+    static CiInformation detect() {
+        return detect(null);
+    }
+
+    @Nonnull
     static CiInformation detect(@Nullable Project project) {
         for (CiInformationProvider installedProvider : CiInformationProvider.installedProviders()) {
             if (installedProvider.isSupported()) {
