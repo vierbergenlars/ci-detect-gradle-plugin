@@ -23,4 +23,21 @@ public interface CiInformation {
 
     boolean isCi();
 
+    @Nullable
+    String getBuildNumber();
+
+    @Nullable
+    String getBranch();
+
+    boolean isPullRequest();
+
+    @Nullable
+    String getPullRequest();
+
+    @Nullable
+    String getPullRequestTargetBranch();
+
+    boolean isTag();
+    @Nullable
+    String getTag();
 }
