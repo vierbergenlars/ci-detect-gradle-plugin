@@ -1,6 +1,7 @@
 package be.vbgn.gradle.cidetect.provider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -18,12 +19,12 @@ final class CiInformationProviderImpl {
         if (installedProviders == null) {
             ServiceLoader<CiInformationProvider> serviceLoader = ServiceLoader.load(CiInformationProvider.class);
 
+            List<CiInformationProvider> providers = new ArrayList<>();
+            for (CiInformationProvider ciInformationProvider : serviceLoader) {
+                providers.add(ciInformationProvider);
+            }
             synchronized (lock) {
-                installedProviders = new ArrayList<>();
-
-                for (CiInformationProvider ciInformationProvider : serviceLoader) {
-                    installedProviders.add(ciInformationProvider);
-                }
+                installedProviders = Collections.unmodifiableList(providers);
             }
         }
         return installedProviders;
