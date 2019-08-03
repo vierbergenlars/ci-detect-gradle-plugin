@@ -4,6 +4,9 @@ import be.vbgn.gradle.cidetect.CiInformation;
 import java.util.Map;
 import javax.annotation.Nullable;
 
+/***
+ * https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
+ */
 class TravisCiInformation implements CiInformation {
 
     private final Map<String, String> env;
