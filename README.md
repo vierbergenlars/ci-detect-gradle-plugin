@@ -36,6 +36,12 @@ ci.isTag() //  => true/false, depending on if this is a git tag that is being bu
 ci.tag // The tag name that is being built
 ```
 
+Supported CI servers:
+
+ * [Travis CI](https://travis-ci.org)
+ * [Jenkins](https://jenkins.io)
+ * [GitLab CI](https://about.gitlab.com/product/continuous-integration/)
+
 ### Programmatic usage
 
 ```java
