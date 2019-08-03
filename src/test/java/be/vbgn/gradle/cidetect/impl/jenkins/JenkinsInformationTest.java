@@ -15,7 +15,7 @@ public class JenkinsInformationTest {
     private static final Map<String, String> BASE_ENV = new HashMap<>();
 
     static {
-        BASE_ENV.put("JENKINS_URL", "blabla");
+        BASE_ENV.put("JENKINS_HOME", "/home/jenkins");
     }
 
     @Test
@@ -54,6 +54,25 @@ public class JenkinsInformationTest {
         assertEquals("master", ciInformation.getPullRequestTargetBranch());
         assertFalse(ciInformation.isTag());
         assertNull(ciInformation.getTag());
+    }
+
+    @Test
+    public void testTravisCiTagBuildInformation() {
+        Map<String, String> environment = new HashMap<>(BASE_ENV);
+        environment.put("BRANCH_NAME", "v1.2.3");
+        environment.put("BUILD_NUMBER", "12");
+        environment.put("TAG_NAME", "v1.2.3");
+
+        CiInformation ciInformation = new JenkinsInformation(environment);
+
+        assertTrue(ciInformation.isCi());
+        assertEquals("v1.2.3", ciInformation.getBranch());
+        assertEquals("12", ciInformation.getBuildNumber());
+        assertFalse(ciInformation.isPullRequest());
+        assertNull(ciInformation.getPullRequest());
+        assertNull(ciInformation.getPullRequestTargetBranch());
+        assertTrue(ciInformation.isTag());
+        assertEquals("v1.2.3", ciInformation.getTag());
     }
 
 }
