@@ -1,14 +1,17 @@
 language: java
 git:
-    depth: false # Disable shallow fetch for sonarqube
+  depth: false # Disable shallow fetch for sonarqube
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -f  $HOME/.gradle/caches/*/fileContent/fileContent.lock
+  - rm -f  $HOME/.gradle/caches/*/executionHistory/executionHistory.lock
+  - rm -f  $HOME/.gradle/caches/*/generated-gradle-jars/generated-gradle-jars.lock
+  - rm -f  $HOME/.gradle/caches/*/javaCompile/javaCompile.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-  - rm -fr $HOME/.gradle/caches/*/fileContent/fileContent.lock
   - rm -fr $HOME/.gradle/caches/*/fileHashes/
-  - rm -fr $HOME/.gradle/caches/*/javaCompile/javaCompile.lock
   - rm -fr $HOME/.gradle/caches/*/scripts/
+  - rm -fr $HOME/.gradle/caches/*/scripts-remapped/
 
 cache:
   directories:
@@ -18,11 +21,11 @@ cache:
 script: ./gradlew check -i
 
 after_script: if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then
-      export SONAR_ARGS="-Dsonar.branch.name=$TRAVIS_BRANCH";
-      else
-      export SONAR_ARGS="-Dsonar.pullrequest.branch=$TRAVIS_PULL_REQUEST_BRANCH -Dsonar.pullrequest.key=$TRAVIS_PULL_REQUEST -Dsonar.pullrequest.base=$TRAVIS_BRANCH";
-      fi;
-      ./gradlew sonarqube -Dsonar.projectKey=vierbergenlars_ci-detect-gradle-plugin -Dsonar.organization=vierbergenlars-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN $SONAR_ARGS
+  export SONAR_ARGS="-Dsonar.branch.name=$TRAVIS_BRANCH";
+  else
+  export SONAR_ARGS="-Dsonar.pullrequest.branch=$TRAVIS_PULL_REQUEST_BRANCH -Dsonar.pullrequest.key=$TRAVIS_PULL_REQUEST -Dsonar.pullrequest.base=$TRAVIS_BRANCH";
+  fi;
+  ./gradlew sonarqube -Dsonar.projectKey=vierbergenlars_ci-detect-gradle-plugin -Dsonar.organization=vierbergenlars-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN $SONAR_ARGS
 
 deploy:
   skip_cleanup: true
