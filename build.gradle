@@ -12,13 +12,8 @@ wrapper {
 
 sourceCompatibility = 1.8
 
-gradlePlugin {
-    plugins {
-        ciDetect {
-            id = "be.vbgn.ci-detect"
-            implementationClass = "be.vbgn.gradle.cidetect.CiDetectPlugin"
-        }
-    }
+repositories {
+    jcenter()
 }
 
 dependencies {
@@ -28,6 +23,28 @@ dependencies {
     testImplementation gradleTestKit()
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
+
+gradlePlugin {
+    plugins {
+        ciDetect {
+            id = "be.vbgn.ci-detect"
+            implementationClass = "be.vbgn.gradle.cidetect.CiDetectPlugin"
+        }
+    }
+}
+
+pluginBundle {
+    vcsUrl = "https://github.com/vierbergenlars/ci-detect-gradle-plugin"
+    website = vcsUrl
+    description = "Plugin that checks if it is running on a continuous integration server and gives you access to the build metadata."
+    tags = ["continuous-integration"]
+    plugins {
+        ciDetect {
+            displayName = "CI detect plugin"
+        }
+    }
+}
+
 
 reckon {
     scopeFromProp()
