@@ -7,28 +7,34 @@ import java.util.ServiceLoader;
 
 final class CiInformationProviderImpl {
 
-    private static List<CiInformationProvider> installedProviders = null;
+    /**
+     * Initialization on demand holder
+     *
+     * @see https://en.wikipedia.org/wiki/Initialization_on_demand_holder_idiom
+     */
+    private static final class LazyHolder {
 
-    private static final Object lock = new Object();
-
-    private CiInformationProviderImpl() {
+        private static final CiInformationProviderImpl INSTANCE = new CiInformationProviderImpl();
     }
 
+    private final List<CiInformationProvider> installedProviders;
 
-    static List<CiInformationProvider> installedProviders() {
-        if (installedProviders == null) {
-            ServiceLoader<CiInformationProvider> serviceLoader = ServiceLoader.load(CiInformationProvider.class);
+    private CiInformationProviderImpl() {
+        ServiceLoader<CiInformationProvider> serviceLoader = ServiceLoader.load(CiInformationProvider.class);
 
-            List<CiInformationProvider> providers = new ArrayList<>();
-            for (CiInformationProvider ciInformationProvider : serviceLoader) {
-                providers.add(ciInformationProvider);
-            }
-            synchronized (lock) {
-                installedProviders = Collections.unmodifiableList(providers);
-            }
+        List<CiInformationProvider> providers = new ArrayList<>();
+        for (CiInformationProvider ciInformationProvider : serviceLoader) {
+            providers.add(ciInformationProvider);
         }
+        installedProviders = Collections.unmodifiableList(providers);
+    }
+
+    private List<CiInformationProvider> getInstalledProviders() {
         return installedProviders;
     }
 
 
+    static List<CiInformationProvider> installedProviders() {
+        return LazyHolder.INSTANCE.getInstalledProviders();
+    }
 }
