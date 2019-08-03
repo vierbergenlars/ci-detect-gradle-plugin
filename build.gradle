@@ -51,3 +51,5 @@ reckon {
     scopeFromProp()
     snapshotFromProp()
 }
+
+reckonTagCreate.dependsOn(check)
