@@ -4,7 +4,6 @@ import javax.annotation.Nullable;
 
 class NullCiInformation implements CiInformation {
 
-
     @Override
     public boolean isCi() {
         return false;
@@ -22,11 +21,6 @@ class NullCiInformation implements CiInformation {
     }
 
     @Override
-    public boolean isPullRequest() {
-        return false;
-    }
-
-    @Override
     public String getPullRequest() {
         return null;
     }
@@ -34,11 +28,6 @@ class NullCiInformation implements CiInformation {
     @Override
     public String getPullRequestTargetBranch() {
         return null;
-    }
-
-    @Override
-    public boolean isTag() {
-        return false;
     }
 
     @Override
