@@ -1,78 +1,45 @@
 package be.vbgn.gradle.cidetect.impl.jenkins;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import be.vbgn.gradle.cidetect.CiInformation;
+import be.vbgn.gradle.cidetect.impl.AbstractCiInformationTest;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.Assume;
+import org.junit.AssumptionViolatedException;
+import org.junit.Ignore;
 
-public class JenkinsInformationTest {
+public class JenkinsInformationTest extends AbstractCiInformationTest {
 
-    private static final Map<String, String> BASE_ENV = new HashMap<>();
-
-    static {
-        BASE_ENV.put("JENKINS_HOME", "/home/jenkins");
+    @Override
+    protected Map<String, String> getBaseEnv(String buildNumber) {
+        Map<String, String> env = new HashMap<>();
+        env.put("JENKINS_HOME", "/home/jenkins");
+        env.put("BUILD_NUMBER", buildNumber);
+        return env;
     }
 
-    @Test
-    public void testJenkinsBranchBuildInformation() {
-        Map<String, String> environment = new HashMap<>(BASE_ENV);
-        environment.put("BRANCH_NAME", "master");
-        environment.put("BUILD_NUMBER", "12");
-
-        CiInformation ciInformation = new JenkinsInformation(environment);
-
-        assertTrue(ciInformation.isCi());
-        assertEquals("master", ciInformation.getBranch());
-        assertEquals("12", ciInformation.getBuildNumber());
-        assertFalse(ciInformation.isPullRequest());
-        assertNull(ciInformation.getPullRequest());
-        assertNull(ciInformation.getPullRequestTargetBranch());
-        assertFalse(ciInformation.isTag());
-        assertNull(ciInformation.getTag());
+    @Override
+    protected Map<String, String> getBranchBuildEnv(String branch) {
+        return Collections.singletonMap("BRANCH_NAME", branch);
     }
 
-    @Test
-    public void testJenkinsPullRequestBuildInformation() {
-        Map<String, String> environment = new HashMap<>(BASE_ENV);
-        environment.put("BRANCH_NAME", "fix-issue");
-        environment.put("BUILD_NUMBER", "12");
-        environment.put("CHANGE_ID", "5");
-        environment.put("CHANGE_TARGET", "master");
-
-        CiInformation ciInformation = new JenkinsInformation(environment);
-
-        assertTrue(ciInformation.isCi());
-        assertEquals("fix-issue", ciInformation.getBranch());
-        assertEquals("12", ciInformation.getBuildNumber());
-        assertTrue(ciInformation.isPullRequest());
-        assertEquals("5", ciInformation.getPullRequest());
-        assertEquals("master", ciInformation.getPullRequestTargetBranch());
-        assertFalse(ciInformation.isTag());
-        assertNull(ciInformation.getTag());
+    @Override
+    protected Map<String, String> getPullRequestBuildEnv(String sourceBranch, String targetBranch, String prNumber) {
+        Map<String, String> environment = new HashMap<>();
+        environment.put("BRANCH_NAME", sourceBranch);
+        environment.put("CHANGE_TARGET", targetBranch);
+        environment.put("CHANGE_ID", prNumber);
+        return environment;
     }
 
-    @Test
-    public void testTravisCiTagBuildInformation() {
-        Map<String, String> environment = new HashMap<>(BASE_ENV);
-        environment.put("BRANCH_NAME", "v1.2.3");
-        environment.put("BUILD_NUMBER", "12");
-        environment.put("TAG_NAME", "v1.2.3");
-
-        CiInformation ciInformation = new JenkinsInformation(environment);
-
-        assertTrue(ciInformation.isCi());
-        assertEquals("v1.2.3", ciInformation.getBranch());
-        assertEquals("12", ciInformation.getBuildNumber());
-        assertFalse(ciInformation.isPullRequest());
-        assertNull(ciInformation.getPullRequest());
-        assertNull(ciInformation.getPullRequestTargetBranch());
-        assertTrue(ciInformation.isTag());
-        assertEquals("v1.2.3", ciInformation.getTag());
+    @Override
+    protected Map<String, String> getTagBuildEnv(String tagName) {
+        throw new AssumptionViolatedException("Tags are not supported on jenkins.");
     }
 
+    @Override
+    protected CiInformation createCiInformation(Map<String, String> env) {
+        return new JenkinsInformation(env);
+    }
 }

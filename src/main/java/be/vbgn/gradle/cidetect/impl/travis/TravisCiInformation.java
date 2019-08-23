@@ -29,8 +29,13 @@ class TravisCiInformation implements CiInformation {
     @Nullable
     @Override
     public String getBranch() {
-        return isPullRequest() ? env.getOrDefault("TRAVIS_PULL_REQUEST_BRANCH", null)
-                : env.getOrDefault("TRAVIS_BRANCH", null);
+        if(isPullRequest()) {
+            return env.getOrDefault("TRAVIS_PULL_REQUEST_BRANCH", null);
+        }
+        if(isTag()) {
+            return null;
+        }
+        return env.getOrDefault("TRAVIS_BRANCH", null);
     }
 
     @Override

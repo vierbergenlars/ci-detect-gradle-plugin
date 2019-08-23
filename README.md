@@ -24,6 +24,9 @@ CI build metadata is exposed through the `ci` variable in your `build.gradle`. I
 ```gradle
 // Basic information
 ci.isCi() // => true or false, depending on if you are running in a CI server or not
+ci.reference // The current branch or tag that is being built
+
+// Branch builds
 ci.branch // The current branch that is being built
 
 // Pull requests
