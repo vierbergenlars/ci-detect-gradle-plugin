@@ -131,7 +131,10 @@ public class GitlabCiInformationTest extends AbstractCiInformationTest {
 
     @Override
     protected Map<String, String> getTagBuildEnv(String tagName) {
-        return Collections.singletonMap("CI_COMMIT_TAG", tagName);
+        Map<String, String> env = new HashMap<>();
+        env.put("CI_COMMIT_REF_NAME", tagName);
+        env.put("CI_COMMIT_TAG", tagName);
+        return env;
     }
 
     @Override

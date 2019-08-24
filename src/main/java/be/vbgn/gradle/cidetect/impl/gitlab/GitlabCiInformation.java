@@ -30,8 +30,13 @@ class GitlabCiInformation implements CiInformation {
     @Nullable
     @Override
     public String getBranch() {
-        return isPullRequest() ? env.getOrDefault("CI_MERGE_REQUEST_SOURCE_BRANCH_NAME", null)
-                : env.getOrDefault("CI_COMMIT_REF_NAME", env.getOrDefault("CI_BUILD_REF_NAME", null));
+        if(isTag()) {
+            return null;
+        }
+        if(isPullRequest()) {
+            return env.getOrDefault("CI_MERGE_REQUEST_SOURCE_BRANCH_NAME", null);
+        }
+        return env.getOrDefault("CI_COMMIT_REF_NAME", env.getOrDefault("CI_BUILD_REF_NAME", null));
     }
 
     @Nullable
