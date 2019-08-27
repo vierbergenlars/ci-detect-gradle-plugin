@@ -1,3 +1,4 @@
 be.vbgn.gradle.cidetect.impl.travis.TravisCiInformationProvider
 be.vbgn.gradle.cidetect.impl.jenkins.JenkinsInformationProvider
 be.vbgn.gradle.cidetect.impl.gitlab.GitlabCiInformationProvider
+be.vbgn.gradle.cidetect.impl.github.GithubActionsInformationProvider

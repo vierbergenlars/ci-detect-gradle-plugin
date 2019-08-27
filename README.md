@@ -44,6 +44,7 @@ Supported CI servers:
  * [Travis CI](https://travis-ci.org)
  * [Jenkins](https://jenkins.io)
  * [GitLab CI](https://about.gitlab.com/product/continuous-integration/)
+ * [Github actions](https://github.com/features/actions)
 
 ### Programmatic usage
 
