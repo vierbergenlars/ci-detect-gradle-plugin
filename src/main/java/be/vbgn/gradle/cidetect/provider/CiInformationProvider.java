@@ -11,7 +11,13 @@ public interface CiInformationProvider {
         return CiInformationProviderImpl.installedProviders();
     }
 
-    boolean isSupported();
+    default boolean isSupported() {
+        return true;
+    }
+
+    default int getPriority() {
+        return 0;
+    }
 
     @Nullable
     CiInformation newCiInformation(@Nullable Project project);

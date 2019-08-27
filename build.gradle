@@ -40,7 +40,7 @@ pluginBundle {
     vcsUrl = "https://github.com/vierbergenlars/ci-detect-gradle-plugin"
     website = vcsUrl
     description = "Plugin that checks if it is running on a continuous integration server and gives you access to the build metadata."
-    tags = ["continuous-integration", "ci", "jenkins", "travis-ci", "gitlab-ci"]
+    tags = ["continuous-integration", "ci", "jenkins", "travis-ci", "gitlab-ci", "github-actions"]
     plugins {
         ciDetect {
             displayName = "CI detect plugin"

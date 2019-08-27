@@ -7,11 +7,6 @@ import org.gradle.api.Project;
 
 public class TravisCiInformationProvider implements CiInformationProvider {
 
-    @Override
-    public boolean isSupported() {
-        return true;
-    }
-
     @Nullable
     @Override
     public CiInformation newCiInformation(@Nullable Project project) {

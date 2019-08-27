@@ -2,6 +2,7 @@ package be.vbgn.gradle.cidetect.provider;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ServiceLoader;
 
@@ -26,6 +27,8 @@ final class CiInformationProviderImpl {
         for (CiInformationProvider ciInformationProvider : serviceLoader) {
             providers.add(ciInformationProvider);
         }
+
+        providers.sort(Comparator.comparing(CiInformationProvider::getPriority).reversed());
         installedProviders = Collections.unmodifiableList(providers);
     }
 
