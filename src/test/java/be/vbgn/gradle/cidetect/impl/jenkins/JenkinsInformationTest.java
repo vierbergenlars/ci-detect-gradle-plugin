@@ -1,13 +1,14 @@
 package be.vbgn.gradle.cidetect.impl.jenkins;
 
+import static org.junit.Assert.assertEquals;
+
 import be.vbgn.gradle.cidetect.CiInformation;
 import be.vbgn.gradle.cidetect.impl.AbstractCiInformationTest;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
-import org.junit.Ignore;
+import org.junit.Test;
 
 public class JenkinsInformationTest extends AbstractCiInformationTest {
 
@@ -41,5 +42,10 @@ public class JenkinsInformationTest extends AbstractCiInformationTest {
     @Override
     protected CiInformation createCiInformation(Map<String, String> env) {
         return new JenkinsInformation(env);
+    }
+
+    @Test
+    public void testPlatform() {
+        assertEquals("Jenkins", new JenkinsInformation(getBaseEnv("12")).getPlatform());
     }
 }

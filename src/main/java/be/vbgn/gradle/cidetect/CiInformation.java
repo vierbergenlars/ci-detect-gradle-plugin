@@ -93,4 +93,16 @@ public interface CiInformation {
      */
     @Nullable
     String getTag();
+
+    /**
+     * @return A string that identifies the CI platform that the build is being run on
+     */
+    @Nullable
+    default String getPlatform() {
+        String className = getClass().getSimpleName();
+        if (className.endsWith("Information")) {
+            return className.substring(0, className.length() - "Information".length());
+        }
+        return className;
+    }
 }
