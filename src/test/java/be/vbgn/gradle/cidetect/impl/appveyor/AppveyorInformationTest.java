@@ -36,7 +36,7 @@ public class AppveyorInformationTest extends AbstractCiInformationTest {
     @Override
     protected Map<String, String> getTagBuildEnv(String tagName) {
         Map<String, String> environment = new HashMap<>();
-        environment.put("APPVEYOR_REPO_BRANCH", tagName);
+        environment.put("APPVEYOR_REPO_BRANCH", "some-branch-name");
         environment.put("APPVEYOR_REPO_TAG_NAME", tagName);
         environment.put("APPVEYOR_REPO_TAG", "true");
         return environment;

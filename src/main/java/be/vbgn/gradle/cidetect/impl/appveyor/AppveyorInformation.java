@@ -29,6 +29,9 @@ public class AppveyorInformation implements CiInformation {
     @Nullable
     @Override
     public String getBranch() {
+        if (isTag()) {
+            return null;
+        }
         if (isPullRequest()) {
             return env.getOrDefault("APPVEYOR_PULL_REQUEST_HEAD_REPO_BRANCH", null);
         }
