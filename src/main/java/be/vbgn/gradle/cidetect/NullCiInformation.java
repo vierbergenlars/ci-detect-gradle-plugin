@@ -34,4 +34,10 @@ class NullCiInformation implements CiInformation {
     public String getTag() {
         return null;
     }
+
+    @Nullable
+    @Override
+    public String getPlatform() {
+        return null;
+    }
 }
