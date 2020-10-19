@@ -48,6 +48,7 @@ Supported CI platforms:
  * [Jenkins](https://jenkins.io)
  * [GitLab CI](https://about.gitlab.com/product/continuous-integration/)
  * [Github actions](https://github.com/features/actions)
+ * [Appveyor](https://www.appveyor.com)
 
 ### Programmatic usage
 
