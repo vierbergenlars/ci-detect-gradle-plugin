@@ -1,10 +1,13 @@
 package be.vbgn.gradle.cidetect.impl.gitlab;
 
+import static org.junit.Assert.assertEquals;
+
 import be.vbgn.gradle.cidetect.CiInformation;
 import be.vbgn.gradle.cidetect.impl.AbstractCiInformationTest;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.Test;
 
 /**
  * |-------------------------------------------|--------|--------|-------------|
@@ -140,5 +143,10 @@ public class GitlabCiInformationTest extends AbstractCiInformationTest {
     @Override
     protected CiInformation createCiInformation(Map<String, String> env) {
         return new GitlabCiInformation(env);
+    }
+
+    @Test
+    public void testPlatform() {
+        assertEquals("GitlabCi", new GitlabCiInformation(getBaseEnv("12")).getPlatform());
     }
 }

@@ -4,7 +4,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vierbergenlars_ci-detect-gradle-plugin&metric=alert_status)](https://sonarcloud.io/dashboard?id=vierbergenlars_ci-detect-gradle-plugin)
 [![Gradle Plugin Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/be/vbgn/ci-detect/be.vbgn.ci-detect.gradle.plugin/maven-metadata.xml.svg?colorB=007ec6&label=be.vbgn.ci-detect)](https://plugins.gradle.org/plugin/be.vbgn.ci-detect)
 
-A gradle plugin that checks if it is running on a continuous integration server and gives you access to the build metadata.
+A gradle plugin that checks if it is running on a continuous integration platform and gives you access to the build metadata.
 
 ## Installation
 
@@ -17,7 +17,7 @@ plugins {
 
 ## Usage
 
-This plugin gives you easy and consistent access to environment variables that CI servers automatically add, independent of which CI solution you are using.
+This plugin gives you easy and consistent access to environment variables that CI platforms automatically add, independent of which CI solution you are using.
 
 CI build metadata is exposed through the `ci` variable in your `build.gradle`. It can also be used programmatically from other Gradle plugins or code.
 
@@ -37,9 +37,12 @@ ci.pullRequestTargetBranch // Branch where the pullrequest will be merged into
 // Tags
 ci.isTag() //  => true/false, depending on if this is a git tag that is being built or not
 ci.tag // The tag name that is being built
+
+// Platform information
+ci.platform // => A string identifying the platform the build is run on.
 ```
 
-Supported CI servers:
+Supported CI platforms:
 
  * [Travis CI](https://travis-ci.org)
  * [Jenkins](https://jenkins.io)

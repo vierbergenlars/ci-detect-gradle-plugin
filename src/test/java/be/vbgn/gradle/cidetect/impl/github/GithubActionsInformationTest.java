@@ -1,10 +1,13 @@
 package be.vbgn.gradle.cidetect.impl.github;
 
+import static org.junit.Assert.assertEquals;
+
 import be.vbgn.gradle.cidetect.CiInformation;
 import be.vbgn.gradle.cidetect.impl.AbstractCiInformationTest;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.Test;
 
 public class GithubActionsInformationTest extends AbstractCiInformationTest {
 
@@ -40,5 +43,10 @@ public class GithubActionsInformationTest extends AbstractCiInformationTest {
     @Override
     protected CiInformation createCiInformation(Map<String, String> env) {
         return new GithubActionsInformation(env);
+    }
+
+    @Test
+    public void testPlatform() {
+        assertEquals("GithubActions", new GithubActionsInformation(getBaseEnv("12")).getPlatform());
     }
 }

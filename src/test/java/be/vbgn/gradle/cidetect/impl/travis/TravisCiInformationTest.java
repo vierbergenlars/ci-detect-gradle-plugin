@@ -1,9 +1,6 @@
 package be.vbgn.gradle.cidetect.impl.travis;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import be.vbgn.gradle.cidetect.CiInformation;
 import be.vbgn.gradle.cidetect.impl.AbstractCiInformationTest;
@@ -61,5 +58,10 @@ public class TravisCiInformationTest extends AbstractCiInformationTest {
     @Override
     protected CiInformation createCiInformation(Map<String, String> env) {
         return new TravisCiInformation(env);
+    }
+
+    @Test
+    public void testPlatform() {
+        assertEquals("TravisCi", new TravisCiInformation(getBaseEnv("12")).getPlatform());
     }
 }
