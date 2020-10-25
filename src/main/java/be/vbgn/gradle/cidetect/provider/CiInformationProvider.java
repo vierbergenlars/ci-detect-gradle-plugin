@@ -11,6 +11,10 @@ public interface CiInformationProvider {
         return CiInformationProviderImpl.installedProviders();
     }
 
+    static void registerProvider(Class<? extends CiInformationProvider> clazz) {
+        CiInformationProviderImpl.registerProvider(clazz);
+    }
+
     default boolean isSupported() {
         return true;
     }

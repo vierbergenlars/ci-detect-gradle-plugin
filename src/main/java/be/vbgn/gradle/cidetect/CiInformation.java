@@ -4,6 +4,16 @@ import be.vbgn.gradle.cidetect.provider.CiInformationProvider;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.gradle.api.Project;
+import org.gradle.api.logging.Logger;
+import org.gradle.api.logging.Logging;
+
+final class LoggerHolder {
+
+    static final Logger LOGGER = Logging.getLogger(CiInformation.class);
+
+    private LoggerHolder() {
+    }
+}
 
 public interface CiInformation {
 
@@ -25,14 +35,20 @@ public interface CiInformation {
      */
     @Nonnull
     static CiInformation detect(@Nullable Project project) {
+        LoggerHolder.LOGGER.debug("Performing CI detection for {}", project);
         for (CiInformationProvider installedProvider : CiInformationProvider.installedProviders()) {
+            LoggerHolder.LOGGER.debug("Querying provider {}", installedProvider);
             if (installedProvider.isSupported()) {
                 CiInformation ciInformation = installedProvider.newCiInformation(project);
+                LoggerHolder.LOGGER.debug("Information from provider {}: {}", installedProvider, ciInformation);
                 if (ciInformation != null && ciInformation.isCi()) {
+                    LoggerHolder.LOGGER.debug("Using CI information for {}: {}", project, ciInformation);
                     return ciInformation;
                 }
             }
         }
+
+        LoggerHolder.LOGGER.debug("No CI information found for {}. Using a null result.", project);
 
         return new NullCiInformation();
     }

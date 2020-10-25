@@ -61,8 +61,12 @@ CiInformation ci = CIInformation.detect(project); // Gives CI detectors access t
 
 # Extending
 
-You can provide extra CI detectors by creating a provider extending [`be.vbgn.gradle.cidetect.provider.CiInformationProvider`](./src/main/java/be/vbgn/gradle/cidetect/provider/CiInformationProvider.java),
-[registering it as a service](https://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html) and placing your jar on the classpath.
+You can provide extra CI detectors by creating a provider extending [`be.vbgn.gradle.cidetect.provider.CiInformationProvider`](./src/main/java/be/vbgn/gradle/cidetect/provider/CiInformationProvider.java).
+
+There are 2 ways to register extra CI detectors:
+
+ * Using the ServiceLoader mechanism: [registering it as a service](https://docs.oracle.com/javase/7/docs/api/java/util/ServiceLoader.html) and placing your jar on the classpath.
+ * Calling `CiInformationProvider#registerProvider()` from a separate Gradle plugin that is applied **before** `be.vbgn.ci-detect`.
 
 For examples of providers, you can have a look at [the builtin providers](./src/main/java/be/vbgn/gradle/cidetect/impl).
 
