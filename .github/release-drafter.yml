@@ -1,0 +1,15 @@
+name-template: $NEXT_PATCH_VERSION
+tag-template: $NEXT_PATCH_VERSION
+change-template: "* $TITLE (#$NUMBER)"
+template: $CHANGES
+
+categories:
+    - title: Added
+      labels:
+          - enhancement
+    - title: Fixed
+      labels:
+          - bug
+exclude-labels:
+    - chore
+    - dependencies
