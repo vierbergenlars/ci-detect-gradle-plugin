@@ -27,7 +27,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     testImplementation gradleTestKit()
-    testImplementation "junit:junit:4.13.1"
+    testImplementation "junit:junit:4.13.2"
 }
 
 gradlePlugin {
