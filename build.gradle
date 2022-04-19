@@ -23,8 +23,8 @@ repositories {
 dependencies {
     implementation localGroovy()
 
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
     testImplementation gradleTestKit()
     testImplementation "junit:junit:4.13.2"
